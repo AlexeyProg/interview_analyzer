@@ -24,9 +24,10 @@ public:
     void setGrade(int x);
     void setStatus(Status &s); // poka hz chto po args
     void setName(string &mName);
+    void addSkill(string &skill);
 private:
     string name;
-    vector<string>skills;
+    vector<string>mSkills;
     int grade;
     string status;
 };

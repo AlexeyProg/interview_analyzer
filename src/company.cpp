@@ -45,6 +45,11 @@ void Company::setStatus(Status &s)
 
 }
 
+void Company::addSkill(string &skill)
+{
+    mSkills.push_back(skill);
+}
+
 Company::~Company()
 {
 
