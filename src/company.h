@@ -30,4 +30,5 @@ private:
     vector<string>mSkills;
     int grade;
     string status;
+    string filename_questions;
 };

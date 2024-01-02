@@ -17,7 +17,10 @@ void Company::setName(string &mName)
 
 void Company::setGrade(int x)
 {
-    this->grade = x;
+    if(grade < 2 || grade > 5)
+        cout << "Error with grade, cant use not 2 - 5 " << endl;
+    else 
+        this->grade = x;
 }
 
 void Company::setStatus(Status &s)
