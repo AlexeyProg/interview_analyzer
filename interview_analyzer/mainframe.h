@@ -10,7 +10,7 @@ class MainFrame :
 public:
     MainFrame(const string &title);
     wxPanel* panel;
-
+    wxBoxSizer* v_sizer;
 private:
     void addSlot(wxCommandEvent &event);
 };
