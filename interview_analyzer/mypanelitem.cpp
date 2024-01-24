@@ -10,6 +10,7 @@ MyPanelItem::MyPanelItem(wxWindow* parent, Company* item) : wxPanel(parent, wxID
 	// need to create first row of table with labels like company name , status, grade for example and then 
 	// we will create theese mypanels ...
 	wxTextCtrl* name = new wxTextCtrl(this, wxID_ANY, "name here", wxDefaultPosition,wxSize(200,-1));
+	
 
 	wxArrayString status_vec;
 	status_vec.push_back("HR");
@@ -26,12 +27,17 @@ MyPanelItem::MyPanelItem(wxWindow* parent, Company* item) : wxPanel(parent, wxID
 
 	sizer->Add(name, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
+	wxTextCtrl* phone_number = new wxTextCtrl(this, wxID_ANY, "phone here", wxDefaultPosition, wxSize(200,-1));
+	sizer->Add(phone_number, 0, wxEXPAND | wxALL, 5);
 
 	wxChoice* status = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, status_vec);
 	sizer->Add(status, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 	wxChoice* grade = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, grade_vec);
 	sizer->Add(grade, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	wxTextCtrl* skills = new wxTextCtrl(this, wxID_ANY, "skills here", wxDefaultPosition, wxDefaultSize);
+	sizer->Add(skills, 0, wxEXPAND | wxALL, 5);
 
 	wxTextCtrl* comment = new wxTextCtrl(this, wxID_ANY,"comment here", wxDefaultPosition, wxSize(300,50));
 	sizer->Add(comment, 0, wxEXPAND | wxALL, 5);

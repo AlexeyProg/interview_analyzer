@@ -2,6 +2,7 @@
 #include "wx/wx.h"
 #include <iostream>
 #include "company.h"
+//#include "wx/scrolwin.h"
 
 using namespace std;
 

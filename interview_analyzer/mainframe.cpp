@@ -1,40 +1,57 @@
 #include "mainframe.h"
 #include "mypanelitem.h"
 
-
 MainFrame::MainFrame(const string& title) : wxFrame(nullptr, wxID_ANY, title)
 {
-	panel = new wxPanel(this);
-	//wxStaticText* user_info = new wxStaticText(panel, wxID_ANY, "Alex Sokolov (C++ Developer)", wxPoint(30,20), wxSize(200,40));
-	//user_info->SetFont(user_info->GetFont().Scale(1.5));
-	
-	wxButton* add = new wxButton(this, wxID_ANY, "add company", wxPoint(840, 20), wxSize(150, 50));
-	add->SetFont(add->GetFont().Scale(1.5));
+    panel = new wxScrolledWindow(this, wxID_ANY);
+    panel->SetScrollRate(10, 10);
 
-	add->Bind(wxEVT_BUTTON, &MainFrame::addSlot, this);
-	
-	v_sizer = new wxBoxSizer(wxVERTICAL);
-	v_sizer->Add(add, 0, wxEXPAND | wxALL, 5);
+    wxPanel* hat_panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
 
-	Company* new_comp = new Company;
-	MyPanelItem* item = new MyPanelItem(this, new_comp);
+    wxStaticText* fio = new wxStaticText(hat_panel, wxID_ANY, "Sokolov A.I. Developer C++", wxPoint(50,10), wxSize(250,50));
+    fio->SetFont(fio->GetFont().Scale(1.5));
+    fio->SetForegroundColour(wxColor(56,182,169));
 
-	v_sizer->Add(item, 0, wxEXPAND | wxALL, 5);
+    wxButton* add = new wxButton(hat_panel, wxID_ANY, "add company", wxPoint(200, 20), wxSize(100, 50));
+    add->SetFont(add->GetFont().Scale(1.5));
+    add->SetInitialSize(wxSize(350,50));
 
 
-	SetSizer(v_sizer);
-	Layout();
+    add->Bind(wxEVT_BUTTON, &MainFrame::addSlot, this);
 
+    wxBoxSizer* hat_sizer = new wxBoxSizer(wxHORIZONTAL);
+    hat_sizer->Add(fio, 0, wxEXPAND | wxALL, 5);
+    hat_sizer->Add(add, 1, wxEXPAND | wxALL, 5);
+
+    hat_panel->SetSizer(hat_sizer);
+
+
+    v_sizer = new wxBoxSizer(wxVERTICAL);
+    //v_sizer->Add(fio, 0, wxEXPAND | wxALL, 5);
+    //v_sizer->Add(add, 1, wxEXPAND | wxALL, 5);
+
+    v_sizer->Add(hat_panel, 0, wxEXPAND | wxALL, 5);
+    scrolled_panel_sizer = new wxBoxSizer(wxVERTICAL);
+    v_sizer->Add(panel, 1, wxEXPAND | wxALL, 5);
+    panel->SetSizer(scrolled_panel_sizer);
+
+    Company* new_comp = new Company;
+    MyPanelItem* item = new MyPanelItem(panel, new_comp);
+
+    scrolled_panel_sizer->Add(item, 0, wxEXPAND | wxALL, 5);
+
+    SetSizer(v_sizer);
+    Layout();
 }
 
 void MainFrame::addSlot(wxCommandEvent& event)
 {
-	//wxLogMessage("button was clicked");
-	Company* new_comp = new Company;
+    Company* new_comp = new Company;
+    MyPanelItem* second_item = new MyPanelItem(panel, new_comp);
+    scrolled_panel_sizer->Add(second_item, 0, wxEXPAND | wxALL, 5);
 
-	MyPanelItem* second_item = new MyPanelItem(this, new_comp);
-
-	v_sizer->Add(second_item, 0, wxEXPAND | wxALL, 5);
-	Layout();
-	
+    // Вызываем метод Scroll, чтобы прокрутить список вниз
+    int scrollIncrement = second_item->GetSize().GetHeight(); // Получаем высоту добавленного элемента
+    panel->Scroll(0, scrollIncrement); // Прокручиваем на высоту элемента
+    Layout();
 }
